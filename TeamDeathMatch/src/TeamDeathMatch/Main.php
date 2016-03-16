@@ -13,11 +13,13 @@ use pocketmine\utils\Config;
 use pocketmine\utils\TextFormat as TF;
 
 use TeamDeathMatch\events\EventsManager;
+use TeamDeathMatch\tasks\GameTask;
 
 class Main extends PluginBase implements Listener{
 
 public $setter = array();
 public $map = array();
+public $score = array();
 
 public function onEnable(){
 	@mkdir($this->getDataFolder());
@@ -55,6 +57,15 @@ public function giveItems(Player $player){
 	}
 	
 }*/
+
+public function checkScore(){
+	if($this->score[$map]["BlueTeam"] === $this->settings->get("score-to-win")){
+		//TODO: stop match and reset arrays, blah, blah, blah
+	}
+	if($this->score[$map]["RedTeam"] === $this->settings->get("score-to-win")){
+		//TODO: stop match and reset arrays, blah, blah, blah
+	}
+}
 
 public function runMatches(){
 	foreach($this->arenas->get("Maps") as $m){
