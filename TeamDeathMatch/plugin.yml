@@ -1,0 +1,5 @@
+name: TDM
+version: "0.1_Beta"
+api: [1.12.0]
+main: TeamDeathMatch\Main
+author: SavionLegendZzz
