@@ -58,7 +58,7 @@ public function giveItems(Player $player){
 	
 }*/
 
-public function checkScore(){
+public function checkScore($map){
 	if($this->score[$map]["BlueTeam"] === $this->settings->get("score-to-win")){
 		//TODO: stop match and reset arrays, blah, blah, blah
 	}
