@@ -49,5 +49,27 @@ public function giveItems(Player $player){
 	$inv->setBoots($b[0],$b[1],$b[2]);
 }
 
+/*SOONpublic function sendMessage(Player $player,$message){
+	if($this->settings->get("message-type") === "popup"){
+		$p->sendpopup($message);
+	}
+	
+}*/
+
+public function runMatches(){
+	foreach($this->arenas->get("Maps") as $m){
+		$level = $this->getServer()->getLevelByName($m);
+		$this->maps[$m]--;
+		if($level !== null){
+			foreach($level->getPlayers() as $p){
+				if($this->maps[$m] === 0){
+					//TODO: match stopping
+				}
+			//SOON: $this->sendMessage($p,$this->maps[$m]);
+				
+			}
+		}
+	}
+}
 
 }
