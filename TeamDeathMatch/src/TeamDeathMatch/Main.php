@@ -21,9 +21,12 @@ public $setter = array();
 public $map = array();
 public $score = array();
 
+public $redPlayers = array();
+public $bluePlayers = array();
+
 public function onEnable(){
 	@mkdir($this->getDataFolder());
-	$this->settings = new Config($this->getDataFolder()."settings.yml", Config::YAML, array("score-to-win" => 30,"game-time" => 900,"helmet" => array(1,1,1),"chestplate" => array(1,1,1),"leggings" => array(1,1,1),"boots" => array(1,1,1)));
+	$this->settings = new Config($this->getDataFolder()."settings.yml", Config::YAML, array("score-to-win" => 30,"game-time" => 900,"message-type" => "popup","helmet" => array(1,1,1),"chestplate" => array(1,1,1),"leggings" => array(1,1,1),"boots" => array(1,1,1)));
 	$this->areans = new Config($this->getDataFolder()."areans.yml", Config::YAML, array("Maps" => array("Map-1")));
 	foreach($this->areans->get("Maps") as $m){
 	$this->maps[$m] = $this->settings->get("game-time");	
@@ -51,19 +54,38 @@ public function giveItems(Player $player){
 	$inv->setBoots($b[0],$b[1],$b[2]);
 }
 
-/*SOONpublic function sendMessage(Player $player,$message){
+public function sendMessageType(Player $player,$message){
 	if($this->settings->get("message-type") === "popup"){
 		$p->sendpopup($message);
+	}else{
+		$p->sendTip($message);
 	}
 	
-}*/
+}
+
+public function pickTeam($map,Player $player){
+	if(count($this->bluePlayers[$map]) < count($this->redPlayers[$map])){
+		$this->bluePlayers[$map][$player->getName()] = array("Player" => $player->getName());
+	}else{
+		$this->redPlayers[$map][$player->getName()] = array("Player" => $player->getName());
+	}
+}
 
 public function checkScore($map){
 	if($this->score[$map]["BlueTeam"] === $this->settings->get("score-to-win")){
-		//TODO: stop match and reset arrays, blah, blah, blah
+		
 	}
 	if($this->score[$map]["RedTeam"] === $this->settings->get("score-to-win")){
-		//TODO: stop match and reset arrays, blah, blah, blah
+		
+	}
+}
+
+public function nextPoint($map,Player $player){
+	if(isset($this->bluePlayers[$map][$player->getName()])){
+		$this->score[$map]["BlueTeam"]++;
+	}
+	if(isset($this->redPlayers[$map][$player->getName()])){
+		$this->score[$map]["RedTeam"]++;
 	}
 }
 
@@ -76,7 +98,7 @@ public function runMatches(){
 				if($this->maps[$m] === 0){
 					//TODO: match stopping
 				}
-			//SOON: $this->sendMessage($p,$this->maps[$m]);
+			$this->sendMessageType($p,$this->maps[$m]);
 				
 			}
 		}

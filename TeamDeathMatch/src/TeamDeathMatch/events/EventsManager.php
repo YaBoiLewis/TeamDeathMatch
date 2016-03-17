@@ -131,6 +131,7 @@ if($ev->getAction() === PlayerInteractEvent::RIGHT_CLICK_BLOCK && $this->setting
 		return;
 	}else{
 		$p->setLevel($this->plugin->getServer()->getLevelByName($this->settings->get("sign[{$map}]")["level"]));
+		$this->plugin->pickTeam($map,$p);
 	}
 }
 }
