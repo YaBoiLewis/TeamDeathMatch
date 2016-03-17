@@ -19,6 +19,7 @@ class Main extends PluginBase implements Listener{
 
 public $setter = array();
 public $map = array();
+public $maps = array();
 public $score = array();
 
 public $redPlayers = array();
@@ -33,6 +34,7 @@ public function onEnable(){
 	}
 	$this->getServer()->getLogger()->info("[TeamDeathMatch]Loaded");
 	$this->getServer()->getPluginManager()->registerEvents(new EventsManager($this),$this);
+	$this->getServer()->getScheduler()->scheduleRepeatingTask(new GameTask($this),20); 
 }
 
 public function onDisable(){
@@ -72,6 +74,9 @@ public function pickTeam($map,Player $player){
 }
 
 public function checkScore($map){
+	if(!in_array($map, $this->score)){
+		return;
+	}
 	if($this->score[$map]["BlueTeam"] === $this->settings->get("score-to-win")){
 		
 	}
@@ -90,7 +95,7 @@ public function nextPoint($map,Player $player){
 }
 
 public function runMatches(){
-	foreach($this->arenas->get("Maps") as $m){
+	foreach($this->areans->get("Maps") as $m){
 		$level = $this->getServer()->getLevelByName($m);
 		$this->maps[$m]--;
 		if($level !== null){

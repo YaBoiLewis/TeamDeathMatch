@@ -132,6 +132,7 @@ if($ev->getAction() === PlayerInteractEvent::RIGHT_CLICK_BLOCK && $this->setting
 	}else{
 		$p->setLevel($this->plugin->getServer()->getLevelByName($this->settings->get("sign[{$map}]")["level"]));
 		$this->plugin->pickTeam($map,$p);
+		$p->sendMessage($this->settings->get("prefix")."you joined a TeamDeathMatch match on ".$p->getLevel()->getName()." map!");
 	}
 }
 }

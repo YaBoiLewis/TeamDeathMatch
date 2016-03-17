@@ -18,10 +18,10 @@ private $plugin;
 		$this->map = $this->plugin->map;
 		$this->areans = $this->plugin->areans;
 	}
-	
+	public function onRun($tick){
 	foreach($this->areans->get("Maps") as $m){
 	$this->plugin->checkScore($m);	
 	}
-	
-	
+	$this->plugin->runMatches();
+}
 }
