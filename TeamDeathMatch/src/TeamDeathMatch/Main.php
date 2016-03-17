@@ -27,7 +27,7 @@ public $bluePlayers = array();
 
 public function onEnable(){
 	@mkdir($this->getDataFolder());
-	$this->settings = new Config($this->getDataFolder()."settings.yml", Config::YAML, array("score-to-win" => 30,"game-time" => 900,"message-type" => "popup","helmet" => array(1,1,1),"chestplate" => array(1,1,1),"leggings" => array(1,1,1),"boots" => array(1,1,1)));
+	$this->settings = new Config($this->getDataFolder()."settings.yml", Config::YAML, array("score-to-win" => 30,"game-time" => 900,"message-type" => "popup","prefix" => "[TDM]","helmet" => array(1,1,1),"chestplate" => array(1,1,1),"leggings" => array(1,1,1),"boots" => array(1,1,1)));
 	$this->areans = new Config($this->getDataFolder()."areans.yml", Config::YAML, array("Maps" => array("Map-1")));
 	foreach($this->areans->get("Maps") as $m){
 	$this->maps[$m] = $this->settings->get("game-time");	
